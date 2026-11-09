@@ -1,0 +1,679 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-01T09:32:49Z",
+  "title": "Design System: Digix",
+  "platform": "android",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Inverting Ink",
+        "tonalRamp": [
+          "#09090B",
+          "#18181B",
+          "#27272A",
+          "#52525B",
+          "#71717A",
+          "#A1A1AA",
+          "#E4E4E7",
+          "#FAFAFA"
+        ]
+      },
+      "onPrimary": {
+        "role": "primary",
+        "displayName": "Ink's Paper",
+        "tonalRamp": [
+          "#09090B",
+          "#18181B",
+          "#27272A",
+          "#52525B",
+          "#71717A",
+          "#A1A1AA",
+          "#E4E4E7",
+          "#FAFAFA"
+        ]
+      },
+      "live": {
+        "role": "tertiary",
+        "displayName": "Live Green",
+        "tonalRamp": [
+          "#14532D",
+          "#166534",
+          "#15803D",
+          "#16A34A",
+          "#22C55E",
+          "#4ADE80",
+          "#BBF7D0",
+          "#F0FDF4"
+        ]
+      },
+      "warning": {
+        "role": "status",
+        "displayName": "Needs-Setup Amber",
+        "tonalRamp": [
+          "#78350F",
+          "#92400E",
+          "#B45309",
+          "#D97706",
+          "#F59E0B",
+          "#FBBF24",
+          "#FDE68A",
+          "#FFFBEB"
+        ]
+      },
+      "destructive": {
+        "role": "status",
+        "displayName": "Failure Red",
+        "tonalRamp": [
+          "#7F1D1D",
+          "#991B1B",
+          "#B91C1C",
+          "#DC2626",
+          "#EF4444",
+          "#F87171",
+          "#FECACA",
+          "#FEF2F2"
+        ]
+      },
+      "background": {
+        "role": "neutral",
+        "displayName": "Ground",
+        "tonalRamp": [
+          "#09090B",
+          "#18181B",
+          "#27272A",
+          "#52525B",
+          "#71717A",
+          "#A1A1AA",
+          "#E4E4E7",
+          "#FAFAFA"
+        ]
+      },
+      "foreground": {
+        "role": "neutral",
+        "displayName": "Text",
+        "tonalRamp": [
+          "#09090B",
+          "#18181B",
+          "#27272A",
+          "#52525B",
+          "#71717A",
+          "#A1A1AA",
+          "#E4E4E7",
+          "#FAFAFA"
+        ]
+      },
+      "secondary": {
+        "role": "neutral",
+        "displayName": "Quiet Text",
+        "tonalRamp": [
+          "#09090B",
+          "#18181B",
+          "#27272A",
+          "#52525B",
+          "#71717A",
+          "#A1A1AA",
+          "#E4E4E7",
+          "#FAFAFA"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Tile",
+        "tonalRamp": [
+          "#09090B",
+          "#18181B",
+          "#27272A",
+          "#52525B",
+          "#71717A",
+          "#A1A1AA",
+          "#E4E4E7",
+          "#FAFAFA"
+        ]
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "tonalRamp": [
+          "#09090B",
+          "#18181B",
+          "#27272A",
+          "#52525B",
+          "#71717A",
+          "#A1A1AA",
+          "#E4E4E7",
+          "#FAFAFA"
+        ]
+      },
+      "switchOff": {
+        "role": "neutral",
+        "displayName": "Switch Off",
+        "tonalRamp": [
+          "#09090B",
+          "#18181B",
+          "#27272A",
+          "#52525B",
+          "#71717A",
+          "#A1A1AA",
+          "#E4E4E7",
+          "#FAFAFA"
+        ]
+      },
+      "switchThumb": {
+        "role": "neutral",
+        "displayName": "Switch Thumb",
+        "tonalRamp": [
+          "#09090B",
+          "#18181B",
+          "#27272A",
+          "#52525B",
+          "#71717A",
+          "#A1A1AA",
+          "#E4E4E7",
+          "#FAFAFA"
+        ]
+      },
+      "primary-dark": {
+        "role": "primary",
+        "displayName": "Inverting Ink (dark)",
+        "tonalRamp": [
+          "#09090B",
+          "#18181B",
+          "#27272A",
+          "#52525B",
+          "#71717A",
+          "#A1A1AA",
+          "#E4E4E7",
+          "#FAFAFA"
+        ]
+      },
+      "onPrimary-dark": {
+        "role": "primary",
+        "displayName": "Ink's Paper (dark)",
+        "tonalRamp": [
+          "#09090B",
+          "#18181B",
+          "#27272A",
+          "#52525B",
+          "#71717A",
+          "#A1A1AA",
+          "#E4E4E7",
+          "#FAFAFA"
+        ]
+      },
+      "live-dark": {
+        "role": "tertiary",
+        "displayName": "Live Green (dark)",
+        "tonalRamp": [
+          "#14532D",
+          "#166534",
+          "#15803D",
+          "#16A34A",
+          "#22C55E",
+          "#4ADE80",
+          "#BBF7D0",
+          "#F0FDF4"
+        ]
+      },
+      "warning-dark": {
+        "role": "status",
+        "displayName": "Needs-Setup Amber (dark)",
+        "tonalRamp": [
+          "#78350F",
+          "#92400E",
+          "#B45309",
+          "#D97706",
+          "#F59E0B",
+          "#FBBF24",
+          "#FDE68A",
+          "#FFFBEB"
+        ]
+      },
+      "destructive-dark": {
+        "role": "status",
+        "displayName": "Failure Red (dark)",
+        "tonalRamp": [
+          "#7F1D1D",
+          "#991B1B",
+          "#B91C1C",
+          "#DC2626",
+          "#EF4444",
+          "#F87171",
+          "#FECACA",
+          "#FEF2F2"
+        ]
+      },
+      "background-dark": {
+        "role": "neutral",
+        "displayName": "Ground (dark)",
+        "tonalRamp": [
+          "#09090B",
+          "#18181B",
+          "#27272A",
+          "#52525B",
+          "#71717A",
+          "#A1A1AA",
+          "#E4E4E7",
+          "#FAFAFA"
+        ]
+      },
+      "foreground-dark": {
+        "role": "neutral",
+        "displayName": "Text (dark)",
+        "tonalRamp": [
+          "#09090B",
+          "#18181B",
+          "#27272A",
+          "#52525B",
+          "#71717A",
+          "#A1A1AA",
+          "#E4E4E7",
+          "#FAFAFA"
+        ]
+      },
+      "secondary-dark": {
+        "role": "neutral",
+        "displayName": "Quiet Text (dark)",
+        "tonalRamp": [
+          "#09090B",
+          "#18181B",
+          "#27272A",
+          "#52525B",
+          "#71717A",
+          "#A1A1AA",
+          "#E4E4E7",
+          "#FAFAFA"
+        ]
+      },
+      "muted-dark": {
+        "role": "neutral",
+        "displayName": "Tile (dark)",
+        "tonalRamp": [
+          "#09090B",
+          "#18181B",
+          "#27272A",
+          "#52525B",
+          "#71717A",
+          "#A1A1AA",
+          "#E4E4E7",
+          "#FAFAFA"
+        ]
+      },
+      "border-dark": {
+        "role": "neutral",
+        "displayName": "Hairline (dark)",
+        "tonalRamp": [
+          "#09090B",
+          "#18181B",
+          "#27272A",
+          "#52525B",
+          "#71717A",
+          "#A1A1AA",
+          "#E4E4E7",
+          "#FAFAFA"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "largeTitle": {
+        "displayName": "Large Title",
+        "purpose": "First item in a screen's scrolling content. One per screen."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Onboarding page headings and the On or Off word."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section labels, compact bar title and empty state titles."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Summaries, paragraphs, checked lines and the Undo Bar message."
+      },
+      "bodyMedium": {
+        "displayName": "Body Medium",
+        "purpose": "Button labels, row titles and run results."
+      },
+      "subhead": {
+        "displayName": "Subhead",
+        "purpose": "Row status lines, hints and inline errors."
+      },
+      "subheadMedium": {
+        "displayName": "Subhead Medium",
+        "purpose": "Small inline labels."
+      },
+      "code": {
+        "displayName": "Code",
+        "purpose": "Code Badges."
+      },
+      "codeLarge": {
+        "displayName": "Code Large",
+        "purpose": "The Code Field; scaled down locally on the watch face."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "quick",
+        "value": "spring(dampingRatio = 0.8, stiffness = 700)",
+        "purpose": "Controls answering a touch."
+      },
+      {
+        "name": "smooth",
+        "value": "spring(dampingRatio = 0.92, stiffness = 400)",
+        "purpose": "Content changing state or moving between places."
+      },
+      {
+        "name": "lively",
+        "value": "spring(dampingRatio = 0.58, stiffness = 420)",
+        "purpose": "The check landing, the step mark, and the watch's face changes and typed digits."
+      },
+      {
+        "name": "instant",
+        "value": "snap()",
+        "purpose": "Switch thumb position and watch size when animations are removed."
+      },
+      {
+        "name": "press-scale",
+        "value": "0.97",
+        "purpose": "Buttons and Icon Actions under the finger, on quick."
+      },
+      {
+        "name": "opacity-crossfade",
+        "value": "tween 90ms to 280ms",
+        "purpose": "Opacity only."
+      },
+      {
+        "name": "live-pulse",
+        "value": "tween 2200ms, restart",
+        "purpose": "Ambient pulse of the live dot."
+      },
+      {
+        "name": "waiting-arc",
+        "value": "tween 2600ms linear, restart",
+        "purpose": "Ambient rotation of the watch's waiting arc."
+      },
+      {
+        "name": "reduced-motion-fade",
+        "value": "tween 120ms",
+        "purpose": "Replaces pushes and onboarding steps when animations are removed."
+      }
+    ],
+    "breakpoints": [],
+    "strokes": [
+      {
+        "name": "hairline",
+        "value": "1dp",
+        "purpose": "Standard stroke: Groups, dividers, fields, outline buttons, Code Badge."
+      },
+      {
+        "name": "mark-ring",
+        "value": "1.5dp",
+        "purpose": "Live dot and setup step rings."
+      },
+      {
+        "name": "watch-ring",
+        "value": "3dp",
+        "purpose": "The watch's progress ring."
+      },
+      {
+        "name": "icon",
+        "value": "1.75 on a 24 grid, round caps and joins",
+        "purpose": "Lucide line icons."
+      }
+    ],
+    "haptics": [
+      {
+        "name": "press",
+        "value": "HapticFeedbackConstants.CLOCK_TICK",
+        "purpose": "Tapping a control."
+      },
+      {
+        "name": "toggle",
+        "value": "TOGGLE_ON or TOGGLE_OFF; CONTEXT_CLICK before Android 14",
+        "purpose": "Flipping a switch."
+      },
+      {
+        "name": "confirm",
+        "value": "HapticFeedbackConstants.CONFIRM",
+        "purpose": "A granted permission, a save or a successful manual run."
+      },
+      {
+        "name": "reject",
+        "value": "HapticFeedbackConstants.REJECT",
+        "purpose": "A refusal, a failed run or a delete."
+      },
+      {
+        "name": "codeCaught",
+        "value": "PRIMITIVE_QUICK_RISE 0.6, then PRIMITIVE_CLICK 1.0 after 40ms; CONFIRM fallback",
+        "purpose": "A code from the watch really ran. Used nowhere else."
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "source": "app/src/main/java/com/littyl/digix/ui/Components.kt#DigixButton",
+      "description": "The one forward action in a view.",
+      "compose": {
+        "kind": "ButtonKind.PRIMARY",
+        "minHeight": "50dp",
+        "padding": "18dp horizontal, 12dp vertical",
+        "shape": "radius",
+        "pressed": "scale 0.97 on quick, ripple in label colour, press haptic",
+        "disabled": "muted fill, secondary label"
+      }
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "source": "app/src/main/java/com/littyl/digix/ui/Components.kt#DigixButton",
+      "description": "A secondary action that still matters.",
+      "compose": {
+        "kind": "ButtonKind.OUTLINE",
+        "border": "1dp border colour",
+        "minHeight": "50dp",
+        "shape": "radius"
+      }
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "source": "app/src/main/java/com/littyl/digix/ui/Components.kt#DigixButton",
+      "description": "Not now, Undo and Clear.",
+      "compose": {
+        "kind": "ButtonKind.GHOST",
+        "border": "none",
+        "minHeight": "50dp",
+        "shape": "radius"
+      }
+    },
+    {
+      "name": "Destructive Button",
+      "kind": "button",
+      "refersTo": "button-destructive",
+      "source": "app/src/main/java/com/littyl/digix/ui/Components.kt#DigixButton",
+      "description": "Delete, in outline form with a red label and a consequence sentence above it.",
+      "compose": {
+        "kind": "ButtonKind.DESTRUCTIVE",
+        "border": "1dp border colour",
+        "minHeight": "50dp",
+        "shape": "radius"
+      }
+    },
+    {
+      "name": "Group and Group Row",
+      "kind": "card",
+      "refersTo": "group-row",
+      "source": "app/src/main/java/com/littyl/digix/ui/Components.kt#Group, #GroupRow, #GroupDivider",
+      "description": "The in-flow container: a hairline outline holding rows split by hairlines.",
+      "compose": {
+        "group": "1dp border colour, radius, no fill, clipped",
+        "rowMinHeight": "56dp",
+        "rowPadding": "14dp horizontal, 10dp vertical",
+        "rowGap": "12dp",
+        "title": "bodyMedium",
+        "status": "subhead, secondary or warning",
+        "codeRan": "12% live wash and 24dp live check for 1600ms"
+      }
+    },
+    {
+      "name": "Switch",
+      "kind": "custom",
+      "refersTo": "switch-on",
+      "source": "app/src/main/java/com/littyl/digix/ui/Components.kt#DigixSwitch, #SwitchVisual",
+      "description": "Thumb stretches under the finger. Live green on the master switch only.",
+      "compose": {
+        "track": "52dp x 32dp",
+        "touchHeight": "48dp",
+        "thumb": "26dp x 26dp, inset 3dp",
+        "pressedThumbWidth": "32dp",
+        "thumbSpring": "quick",
+        "colourSpring": "smooth",
+        "haptic": "toggle"
+      }
+    },
+    {
+      "name": "Code Badge",
+      "kind": "chip",
+      "refersTo": "code-badge",
+      "source": "app/src/main/java/com/littyl/digix/ui/Components.kt#CodeBadge",
+      "description": "A code in tabular numerals, always left to right.",
+      "compose": {
+        "border": "1dp border colour",
+        "shape": "radiusSmall",
+        "padding": "9dp horizontal, 4dp vertical",
+        "typography": "code",
+        "quiet": "secondary text while the master switch is off"
+      }
+    },
+    {
+      "name": "Code Field",
+      "kind": "input",
+      "refersTo": "code-field",
+      "source": "app/src/main/java/com/littyl/digix/ui/screens/EditScreen.kt#CodeField",
+      "description": "Centred Code Large on a phone keyboard, forced left to right.",
+      "compose": {
+        "border": "1dp; destructive on error, foreground on focus, otherwise border",
+        "borderSpring": "smooth",
+        "shape": "radius",
+        "padding": "12dp horizontal, 14dp vertical"
+      }
+    },
+    {
+      "name": "Pinned Bar",
+      "kind": "nav",
+      "refersTo": "pinned-bar",
+      "source": "app/src/main/java/com/littyl/digix/ui/Components.kt#PinnedBar",
+      "description": "Always-visible bar; a compact title and bottom hairline appear once the Large Title scrolls away.",
+      "compose": {
+        "height": "52dp plus status bar",
+        "compactTitle": "headline, alpha and 8dp translationY on smooth",
+        "bottomRule": "1dp border colour, alpha follows compact title"
+      }
+    },
+    {
+      "name": "Watch Scene",
+      "kind": "custom",
+      "refersTo": null,
+      "source": "app/src/main/java/com/littyl/digix/ui/onboarding/WatchScene.kt#WatchScene",
+      "description": "The onboarding's one authored element: a flat line-drawn watch that reacts to a real dial.",
+      "compose": {
+        "diameter": "196dp, 150dp or 92dp on smooth",
+        "stroke": "max(radius x 0.022, 1.2dp), round",
+        "fills": "case background, strap and crown muted",
+        "ring": "3dp at 90% diameter",
+        "waiting": "72 degree foreground arc, 2600ms linear",
+        "success": "live arc sweep on smooth, live check on lively",
+        "semantics": "cleared"
+      }
+    }
+  ],
+  "narrative": {
+    "northStar": "The Quietest Possible App",
+    "overview": "Digix is opened rarely, so its screens read at a glance and then get out of the way. The look is user-pinned: Apple-style and simple, in the manner of shadcn. Apple supplies the large titles, pinned navigation bar, stretching switch and push transitions. shadcn supplies the zinc scale, hairline groups and near-black buttons. Density is relaxed but compact: one column of bordered rows on a near-white or near-black ground.\n\nRestraint is the identity and motion carries the delight. Surfaces stay flat and uncoloured at rest. When something happens, a spring moves it and a haptic confirms it. The single authored element is the line-drawn watch in onboarding, which persists across every step and reacts to a real dial. The rejected directions are themed concepts, skeuomorphism, gradients and decorated cards.\n\nTheming follows the system light or dark setting. There is no Material You dynamic colour and no in-app theme choice. Material 3 is present only as plumbing: its colour scheme, `Text`, `Icon` and ripple. Every control is drawn by the app.",
+    "keyCharacteristics": [
+      "Zinc neutrals with an inverting near-black or near-white primary, and no brand hue.",
+      "One green, which only ever means live or just ran.",
+      "Inter alone, at two optical sizes, with strong weight contrast and tabular codes.",
+      "1dp hairlines and tonal tiles instead of shadows.",
+      "Springs on movement, scale, size and colour, paired with a small haptic vocabulary.",
+      "Sentence case everywhere. Nothing is uppercase, and there are no kickers or eyebrows."
+    ],
+    "rules": [
+      {
+        "name": "The One Green Rule",
+        "body": "Green means Digix is listening or a code really ran, and nothing else. Buttons, links, ordinary switches and setup checks stay neutral, which is why the Haptics switch and the finished step mark use the primary colour.",
+        "section": "colors"
+      },
+      {
+        "name": "The No-Brand-Hue Rule",
+        "body": "The primary action is ink on paper. Emphasis comes from inversion and weight, never from a coloured accent.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two-Signals Rule",
+        "body": "No state is carried by colour alone. On and off pair the word with a filled or hollow dot and the switch position, a needs-setup row says so in words, and an error is a sentence.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tabular Code Rule",
+        "body": "A code always renders in Code or Code Large and always reads left to right, including in right-to-left languages. TalkBack hears it digit by digit.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tracking Gate Rule",
+        "body": "Negative tracking applies only to Latin-like scripts. The theme switches it to zero for Arabic, Hebrew, Indic and Southeast Asian languages, because tightening damages those scripts. Positive tracking on numerals is not gated.",
+        "section": "typography"
+      },
+      {
+        "name": "The No-Shadow Rule",
+        "body": "Separation is a hairline or an opaque ground. A floating element gets both, and never a shadow.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Earned Bounce Rule",
+        "body": "Visible overshoot belongs to the moments of arrival: the check landing and the onboarding watch. Everything else settles without bounce.",
+        "section": "components"
+      },
+      {
+        "name": "The Signature Haptic Rule",
+        "body": "`codeCaught`, a quick rise followed by a click 40ms later, plays only when a code from the watch really ran. No other event may use it.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "Do put new content in a Group: a 1dp hairline at the 12dp radius, with no fill at rest.",
+      "Do start every app screen with the Pinned Bar and Large Title, inside the 16dp gutter.",
+      "Do pair a state change with a spring from the theme and a haptic from the vocabulary.",
+      "Do give every state a word as well as a colour or shape.",
+      "Do use Inverting Ink for one primary action per view, and outline or ghost for the rest.",
+      "Do render codes in Code or Code Large, forced left to right.",
+      "Do check the removed-animations setting for anything that loops or scales under the finger.",
+      "Do keep status colours on text and marks, and use them only when there is something to report."
+    ],
+    "donts": [
+      "Don't use Live Green for anything except listening or a code that really ran.",
+      "Don't add shadows, elevation or gradients.",
+      "Don't add themed concepts or skeuomorphic detail. The flat line-drawn watch is the one illustration.",
+      "Don't add a second typeface or a monospace for codes.",
+      "Don't set text in uppercase or add kickers above headings.",
+      "Don't add a radius beyond 12dp, 8dp and fully round.",
+      "Don't use Material chrome such as buttons, switches, cards, top bars or dialogs. Draw the control from these tokens.",
+      "Don't tween movement or scale. Tweens are for opacity and ambient loops.",
+      "Don't celebrate before the result is real. The green check and `codeCaught` follow a completed run."
+    ],
+    "notCanonized": [
+      "The white thumb on the dark theme's live track is 2.28:1, under the 3:1 non-text guideline. The light theme is 3.3:1. Position, dot and word also carry this state.",
+      "The hairline is 1.22:1 on the light ground and 1.34:1 on the dark ground, so it is a separator and not a sufficient boundary alone. Outlined controls here rely on a label or value inside them.",
+      "Section gaps vary between 18, 22, 26 and 28dp with no shared constant, and the title scroll threshold is a raw 90px rather than dp.",
+      "The theme's comment and the direction contract both say springs drive every state change, while opacity uses tweens. This file records the build.",
+      "The `caption` type style, the Code Badge `highlighted` state and the 700 weight instance exist in code and are unused, so they are left out of this system."
+    ]
+  }
+}

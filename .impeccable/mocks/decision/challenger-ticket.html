@@ -1,0 +1,36 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Digix, Jet-Age Ticket Wallet</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@500;700&family=Courier+Prime:wght@700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0}
+body{width:390px;height:844px;overflow:hidden;background:#14284F;font-family:"Archivo Narrow",sans-serif;color:#14284F;display:flex;flex-direction:column}
+.status{height:44px;padding:14px 24px 0;display:flex;justify-content:space-between;font-size:13px;font-weight:700;color:#fff}
+.bar{height:56px;padding:0 20px;display:flex;align-items:center;color:#fff}
+.bar h1{font-size:28px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.stub{margin:4px 14px 14px;background:#FBFBF6;border-radius:8px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px dashed #9BA4B8}
+.stub b{display:block;font-size:36px;line-height:1;text-transform:uppercase;letter-spacing:.03em}
+.stub span{display:block;margin-top:6px;font-size:15px}
+.sw{width:60px;height:36px;border-radius:18px;background:#C8202F;padding:4px;display:flex;justify-content:flex-end}
+.sw b{width:28px;height:28px;border-radius:14px;background:#FBFBF6}
+.wallet{flex:1;padding:0 14px;display:flex;flex-direction:column;gap:6px}
+.cp{position:relative;background:#FBFBF6;border-radius:6px;display:flex;min-height:74px}
+.num{width:112px;flex:none;border-right:1px dashed #9BA4B8;display:grid;place-items:center;font:700 30px "Courier Prime",monospace;color:#5B3A8C;letter-spacing:.02em}
+.tx{padding:12px 14px}.tx b{display:block;font-size:19px;text-transform:uppercase;letter-spacing:.03em}.tx span{font-size:14px}
+.stamp{position:absolute;right:10px;top:16px;transform:rotate(-9deg);border:3px solid #C8202F;color:#C8202F;border-radius:5px;padding:2px 7px;font-size:23px;font-weight:700;letter-spacing:.06em}
+.ok{border-color:#14284F;color:#14284F}
+nav{height:74px;background:#0D1D3B;display:flex;justify-content:space-around;align-items:center;color:#A9B6D2;font-size:12px;font-weight:700;text-transform:uppercase;padding-bottom:8px;margin-top:10px}
+nav .on{color:#fff}
+nav div:before{content:"";display:block;width:22px;height:22px;margin:0 auto 5px;border:2px solid currentColor;border-radius:4px}
+</style></head><body>
+<div class="status"><span>9:41</span><span>5G</span></div>
+<div class="bar"><h1>Digix</h1></div>
+<div class="stub"><div><b>On</b><span>Codes are being honoured.</span></div><div class="sw"><b></b></div></div>
+<div class="wallet">
+<div class="cp"><div class="num">0101</div><div class="tx"><b>Hotspot</b><span>2 hours ago</span></div><div class="stamp ok">RAN</div></div>
+<div class="cp"><div class="num">0102</div><div class="tx"><b>Find my phone</b><span>Rings on silent</span></div></div>
+<div class="cp"><div class="num">0103</div><div class="tx"><b>Flashlight</b><span>Yesterday</span></div><div class="stamp ok">RAN</div></div>
+<div class="cp"><div class="num">0104</div><div class="tx"><b>Wi-Fi</b><span>One more step</span></div><div class="stamp">HOLD</div></div>
+<div class="cp"><div class="num">0105</div><div class="tx"><b>Do Not Disturb</b><span>Not used yet</span></div></div>
+</div>
+<nav><div class="on">Codes</div><div>Activity</div><div>Settings</div></nav>
+</body></html>

@@ -1,0 +1,13 @@
+.gradle/
+.build-tools/
+build/
+local.properties
+.idea/
+*.iml
+*.keystore
+.DS_Store
+.impeccable/review/
+
+# Local project archives and generated APKs
+/.context/
+/dist/

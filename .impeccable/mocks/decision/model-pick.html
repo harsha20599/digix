@@ -1,0 +1,36 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Digix, Code of Signals</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100,400;100,600;125,800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0}
+body{width:390px;height:844px;overflow:hidden;background:#FAFAF7;font-family:Archivo,sans-serif;color:#111;display:flex;flex-direction:column}
+.status{height:44px;padding:14px 24px 0;display:flex;justify-content:space-between;font-size:13px;font-weight:600}
+.bar{height:56px;padding:0 20px;display:flex;align-items:center;justify-content:space-between}
+.bar h1{font-size:26px;font-weight:800;font-stretch:125%;letter-spacing:-.01em}
+.master{margin:6px 16px 0;background:#0A3D91;color:#fff;border-radius:18px;padding:18px 18px 18px 20px;display:flex;align-items:center;justify-content:space-between}
+.master b{display:block;font-size:34px;font-weight:800;font-stretch:125%;line-height:1}
+.master span{display:block;margin-top:6px;font-size:14px;color:#CFE0FF}
+.sw{width:60px;height:36px;border-radius:18px;background:#F6C700;padding:4px;display:flex;justify-content:flex-end}
+.sw b{width:28px;height:28px;border-radius:14px;background:#111}
+.head{padding:22px 20px 8px;font-size:24px;font-weight:800;font-stretch:125%}
+.item{display:flex;gap:14px;align-items:center;margin:0 20px;padding:10px 0;border-bottom:1px solid #E2E2DC}
+.hoist{display:flex;flex:none;width:104px;gap:1px;height:46px;border-left:3px solid #111;padding-left:2px}
+.p{width:24px;height:46px;clip-path:polygon(0 0,100% 50%,0 100%);display:flex;align-items:center;padding-left:3px;font-size:22px;font-weight:800;line-height:1}
+.r{background:#C8102E;color:#fff}.y{background:#F6C700;color:#111}.b{background:#0A3D91;color:#fff}.k{background:#111;color:#fff}
+.tx b{display:block;font-size:17px;font-weight:600}.tx span{font-size:14px;color:#555}
+.warn{color:#9A1022;font-weight:600}
+nav{margin-top:auto;height:76px;background:#fff;border-top:1px solid #E2E2DC;display:flex;justify-content:space-around;align-items:center;font-size:12px;font-weight:600;color:#555;padding-bottom:8px}
+nav .on{color:#0A3D91}
+nav div:before{content:"";display:block;width:22px;height:22px;margin:0 auto 5px;border:2px solid currentColor;border-radius:5px}
+</style></head><body>
+<div class="status"><span>9:41</span><span>5G</span></div>
+<div class="bar"><h1>Digix</h1></div>
+<div class="master"><div><b>On</b><span>Your watch can run these codes.</span></div><div class="sw"><b></b></div></div>
+<div class="head">Your codes</div>
+<div class="item"><div class="hoist"><div class="p k">0</div><div class="p r">1</div><div class="p k">0</div><div class="p r">1</div></div><div class="tx"><b>Hotspot</b><span>Ran 2 hours ago</span></div></div>
+<div class="item"><div class="hoist"><div class="p k">0</div><div class="p r">1</div><div class="p k">0</div><div class="p y">2</div></div><div class="tx"><b>Find my phone</b><span>Rings even on silent</span></div></div>
+<div class="item"><div class="hoist"><div class="p k">0</div><div class="p r">1</div><div class="p k">0</div><div class="p b">3</div></div><div class="tx"><b>Flashlight</b><span>Ran yesterday</span></div></div>
+<div class="item"><div class="hoist"><div class="p k">0</div><div class="p r">1</div><div class="p k">0</div><div class="p y">4</div></div><div class="tx"><b>Wi-Fi</b><span class="warn">Needs one more step</span></div></div>
+<div class="item"><div class="hoist"><div class="p k">0</div><div class="p r">1</div><div class="p k">0</div><div class="p b">5</div></div><div class="tx"><b>Do Not Disturb</b><span>Not used yet</span></div></div>
+<nav><div class="on">Codes</div><div>Activity</div><div>Settings</div></nav>
+</body></html>

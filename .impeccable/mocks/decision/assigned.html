@@ -1,0 +1,52 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Digix, Enamel Number Plates</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0}
+body{width:390px;height:844px;overflow:hidden;background:#E6EBF5;font-family:Barlow,sans-serif;color:#0B1B44;display:flex;flex-direction:column}
+.status{height:44px;padding:14px 24px 0;display:flex;justify-content:space-between;font-size:13px;font-weight:600;background:#123C9C;color:#fff}
+.hero{background:#123C9C;padding:8px 20px 28px;color:#fff}
+.bar{display:flex;align-items:center;justify-content:space-between;height:48px}
+.bar h1{font-size:24px;font-weight:600;letter-spacing:-.01em}
+.dots{width:24px;height:24px;display:grid;place-items:center}
+.dots i{display:block;width:4px;height:4px;border-radius:2px;background:#fff;box-shadow:0 7px 0 #fff,0 -7px 0 #fff}
+.plate{position:relative;margin-top:12px;border-radius:22px;padding:22px 22px 20px;background:linear-gradient(180deg,#1E51C4 0%,#123C9C 48%,#0B2B7C 100%);box-shadow:0 0 0 2px #F7F8F4,0 0 0 5px #0B2569,0 14px 24px -8px rgba(3,14,50,.7);overflow:hidden}
+.plate:before{content:"";position:absolute;left:14px;right:14px;top:7px;height:44%;border-radius:16px 16px 60% 60%/16px 16px 22px 22px;background:linear-gradient(180deg,rgba(255,255,255,.26),rgba(255,255,255,0))}
+.plate>*{position:relative}
+.row{display:flex;justify-content:space-between;align-items:center}
+.state{font-size:40px;line-height:1;font-weight:700;letter-spacing:-.02em}
+.sw{width:64px;height:38px;border-radius:19px;background:#F7F8F4;padding:4px;display:flex;justify-content:flex-end}
+.sw b{width:30px;height:30px;border-radius:15px;background:#123C9C;display:block}
+.sub{margin-top:10px;font-size:16px;line-height:1.3;color:#DCE5FB}
+.list{flex:1;padding:18px 16px 0;display:flex;flex-direction:column;gap:2px}
+.head{display:flex;justify-content:space-between;align-items:baseline;padding:0 4px 10px}
+.head h2{font-size:24px;font-weight:600}.head a{font-size:14px;font-weight:600;color:#123C9C}
+.item{display:flex;align-items:center;gap:14px;padding:11px 4px;border-bottom:1px solid #CFD8EA}
+.mini{flex:none;width:76px;height:44px;border-radius:10px;background:linear-gradient(180deg,#2256CB,#123C9C 55%,#0C2E84);box-shadow:0 0 0 1.5px #F7F8F4,0 0 0 3px #0B2569;color:#fff;display:grid;place-items:center;font-size:24px;font-weight:600;letter-spacing:.04em;font-variant-numeric:tabular-nums}
+.mini.off{background:#AAB6D0;box-shadow:0 0 0 1.5px #F7F8F4,0 0 0 3px #8391B0}
+.tx{flex:1;min-width:0}.tx b{display:block;font-size:17px;font-weight:600}.tx span{font-size:14px;color:#46557A}
+.warn{color:#8A5A00;font-weight:600}
+nav{height:76px;background:#F7F8F4;display:flex;justify-content:space-around;align-items:center;padding-bottom:8px;border-top:1px solid #CFD8EA}
+nav div{font-size:12px;font-weight:600;color:#46557A;text-align:center}
+nav i{display:block;width:56px;height:30px;border-radius:15px;margin:0 auto 4px;background:transparent;position:relative}
+nav i:after{content:"";position:absolute;inset:8px 19px;border:2px solid #46557A;border-radius:4px}
+nav .on{color:#123C9C}nav .on i{background:#D5E0F8}nav .on i:after{border-color:#123C9C}
+</style></head><body>
+<div class="status"><span>9:41</span><span>5G</span></div>
+<section class="hero">
+<div class="bar"><h1>Digix</h1><div class="dots"><i></i></div></div>
+<div class="plate">
+<div class="row"><div class="state">On</div><div class="sw"><b></b></div></div>
+<p class="sub">Your watch can run these codes. Other calls go through as usual.</p>
+</div>
+</section>
+<section class="list">
+<div class="head"><h2>Your codes</h2><a>Add</a></div>
+<div class="item"><div class="mini">0101</div><div class="tx"><b>Hotspot</b><span>Ran 2 hours ago</span></div></div>
+<div class="item"><div class="mini">0102</div><div class="tx"><b>Find my phone</b><span>Rings even on silent</span></div></div>
+<div class="item"><div class="mini">0103</div><div class="tx"><b>Flashlight</b><span>Ran yesterday</span></div></div>
+<div class="item"><div class="mini off">0104</div><div class="tx"><b>Wi-Fi</b><span class="warn">Needs one more step</span></div></div>
+<div class="item"><div class="mini">0105</div><div class="tx"><b>Do Not Disturb</b><span>Not used yet</span></div></div>
+</section>
+<nav><div class="on"><i></i>Codes</div><div><i></i>Activity</div><div><i></i>Settings</div></nav>
+</body></html>
