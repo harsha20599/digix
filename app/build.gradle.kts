@@ -29,8 +29,6 @@ android {
             // The sideload app uses the legacy direct Android controls.
             applicationId = "com.littyl.digix"
             targetSdk = 28
-            versionCode = 1
-            versionName = "1.0"
         }
         buildConfigField("boolean", "PLAY_EDITION", playEdition.toString())
         manifestPlaceholders["playEdition"] = playEdition.toString()

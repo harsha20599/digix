@@ -13,7 +13,7 @@ The phone app uses the original Halo + Quiet design, with a dot-matrix halo, rea
 
 These screenshots show the Play edition running on an Android emulator with example codes.
 
-[Google Play](https://play.google.com/store/apps/details?id=com.littyl.digix.play) · [Privacy policy](https://digix-privacy.vercel.app/) · [License](LICENSE)
+[Download the APK](https://github.com/harsha20599/digix/releases/latest/download/DigiX.apk) · [All GitHub releases](https://github.com/harsha20599/digix/releases) · [Google Play](https://play.google.com/store/apps/details?id=com.littyl.digix.play) · [Privacy policy](https://digix-privacy.vercel.app/) · [License](LICENSE)
 
 ## Contents
 
@@ -32,7 +32,7 @@ These screenshots show the Play edition running on an Android emulator with exam
 
 You need an Android phone running Android 10 or later and a watch that can place calls through that phone over Bluetooth. Keep Bluetooth calling connected and use the watch’s dial pad for your saved DigiX codes.
 
-1. Install DigiX from Google Play, or build and sign an APK using the instructions below.
+1. Download **DigiX.apk** from GitHub Releases and install it on your phone, or install the approved Google Play edition. Android may ask you to allow installation from the browser or file manager you used. Source build and signing instructions are below.
 2. Open DigiX on the phone and complete onboarding. Grant Android’s call-redirection role when prompted.
 3. Try the introductory code from the watch and check the result in DigiX’s Activity screen.
 4. Add an action, choose its code, and finish any permission or setup steps shown for that action.
@@ -118,7 +118,9 @@ Both editions share the original interface, code validation, branding, and actio
 | Google Play | `com.littyl.digix.play` | Android 10, API 29 | 36 | `-Pdigix.play=true` |
 | Sideload | `com.littyl.digix` | Android 10, API 29 | 28 | `-Pdigix.play=false` |
 
-The sideload edition uses a legacy target to retain direct Android control paths where the operating system permits them. The Play edition uses current Android permission and foreground-service flows. Each package has its own saved settings.
+The GitHub download is the signed **1.1.0** sideload release, build **4**, using `com.littyl.digix`. Its APK and SHA-256 checksum are attached to the GitHub release. If Android reports a signing conflict with an older development APK, export or record your settings before uninstalling that APK and installing this release; uninstalling clears its local data.
+
+The sideload edition uses a legacy target to retain direct Android control paths where the operating system permits them. The Play edition uses current Android permission and foreground-service flows. Each package has its own saved settings. Select the edition you want to use when Android asks which app should hold the call-redirection role.
 
 An update from the earlier Play shortcut app preserves its application ID and Telecom component. The migration carries over configured shortcut codes and the enabled state, fills in defaults for missing legacy codes, and keeps spoken replies disabled for migrated users. The upgrade test checks these values across an in-place update and process restart.
 
