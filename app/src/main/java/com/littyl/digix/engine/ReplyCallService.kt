@@ -18,6 +18,7 @@ import android.telecom.DisconnectCause
 import android.telecom.PhoneAccount
 import android.telecom.PhoneAccountHandle
 import android.telecom.TelecomManager
+import com.littyl.digix.BuildConfig
 import com.littyl.digix.R
 import com.littyl.digix.core.ActionType
 import com.littyl.digix.core.AssistantConfig
@@ -300,7 +301,12 @@ private class ReplyCall(private val context: Context, private val binding: CodeB
 
         var silences = 0
         while (!ended && silences < MAX_SILENCES && history.size < MAX_TURNS) {
-            val audio = listener.listen()
+            val audio = try {
+                listener.listen()
+            } catch (_: SecurityException) {
+                speaker.speak(context.getString(R.string.spoken_assistant_mic))
+                break
+            }
             if (ended) break
             if (audio == null) {
                 silences++
@@ -313,7 +319,7 @@ private class ReplyCall(private val context: Context, private val binding: CodeB
                 speaker.speak(context.getString(failureMessage(e.failure)))
                 break
             }
-            reply.action?.let { name -> Store.codes.value.firstOrNull { it.action.name == name && it.action in ASSISTANT_ACTIONS } }
+            reply.action?.let { name -> Store.codes.value.firstOrNull { it.action.name == name && assistantCanRun(it.action) } }
                 ?.let { requested ->
                     if (requested.action in AFTER_CALL_ACTIONS) afterCall += requested else ActionService.dispatch(context, requested)
                 }
@@ -332,9 +338,13 @@ private class ReplyCall(private val context: Context, private val binding: CodeB
         }
     }
 
+    // Play permits the helper for explicit dial-code actions, not model-selected actions.
+    private fun assistantCanRun(action: ActionType): Boolean =
+        action in ASSISTANT_ACTIONS && (!BuildConfig.PLAY_EDITION || action !in HELPER_CAPABLE_ACTIONS)
+
     private fun assistantInstructions(binding: CodeBinding): String {
         // Only things that are safe to run on a misheard word, so never SOS, calls or messages.
-        val actions = Store.codes.value.map { it.action }.filter { it in ASSISTANT_ACTIONS }.joinToString(", ") { it.name }
+        val actions = Store.codes.value.map { it.action }.filter(::assistantCanRun).joinToString(", ") { it.name }
         return """
             You are a voice assistant heard through a small watch speaker during a phone call.
             Speak briefly and naturally, in one or two short sentences. Use no markdown, lists or symbols.
@@ -401,6 +411,8 @@ private class ReplyCall(private val context: Context, private val binding: CodeB
         const val MAX_SILENCES = 2
         const val MAX_TURNS = 40
         const val MAX_REMEMBERED_TURNS = 10
+        val HELPER_CAPABLE_ACTIONS = setOf(ActionType.WIFI, ActionType.HOTSPOT)
+
         val AFTER_CALL_ACTIONS = setOf(ActionType.PLAY_PAUSE, ActionType.NEXT_TRACK, ActionType.FIND_PHONE, ActionType.LOCK_PHONE)
     }
 }

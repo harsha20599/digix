@@ -46,10 +46,21 @@ class ActionService : Service() {
             ACTION_RUN -> {
                 val code = intent.getStringExtra(EXTRA_CODE).orEmpty()
                 val binding = Store.find(code)
-                goForeground(
-                    binding?.let { getString(it.action.title) } ?: getString(R.string.running_generic),
-                    needsLocation = binding?.action == ActionType.SHARE_LOCATION,
-                )
+                try {
+                    goForeground(
+                        binding?.let { getString(it.action.title) } ?: getString(R.string.running_generic),
+                        needsLocation = binding?.action == ActionType.SHARE_LOCATION,
+                    )
+                } catch (e: SecurityException) {
+                    Log.w(TAG, "Action foreground permission denied", e)
+                    if (binding != null) {
+                        val message = if (binding.action == ActionType.SHARE_LOCATION) R.string.result_location_permission
+                            else R.string.result_needs_background
+                        report(this, binding, ActionOutcome(RunStatus.NEEDS_SETUP, getString(message)))
+                    }
+                    release()
+                    return START_NOT_STICKY
+                }
                 if (binding != null) run(binding, startId) else release()
             }
             else -> {

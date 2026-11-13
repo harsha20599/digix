@@ -1,7 +1,9 @@
 package com.littyl.digix.core
 
+import android.app.role.RoleManager
 import android.content.Context
 import android.content.SharedPreferences
+import com.littyl.digix.BuildConfig
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -51,6 +53,7 @@ object Store {
 
     fun init(context: Context) {
         prefs = context.getSharedPreferences("digix", Context.MODE_PRIVATE)
+        if (BuildConfig.PLAY_EDITION) importPlayShortcuts(context)
         _enabled.value = prefs.getBoolean("enabled", true)
         _onboarded.value = prefs.getBoolean("onboarded", false)
         _haptics.value = prefs.getBoolean("haptics", true)
@@ -58,6 +61,41 @@ object Store {
         _codes.value = readCodes()
         _log.value = readLog()
         _tileLabels.value = readTileLabels()
+    }
+
+    private fun importPlayShortcuts(context: Context) {
+        if (prefs.contains("first_run_done") || prefs.contains("codes")) return
+        val legacy = context.getSharedPreferences("shortcuts", Context.MODE_PRIVATE)
+        val info = context.packageManager.getPackageInfo(context.packageName, 0)
+        val hadCallRole = context.getSystemService(RoleManager::class.java)
+            .isRoleHeld(RoleManager.ROLE_CALL_REDIRECTION)
+        if (legacy.all.isEmpty() && !hadCallRole && info.lastUpdateTime <= info.firstInstallTime) return
+
+        val codes = JSONArray().apply {
+            putLegacyBinding(legacy, "BATTERY", "0103", ActionType.BATTERY)
+            putLegacyBinding(legacy, "MEDIA_TOGGLE", "0104", ActionType.PLAY_PAUSE)
+            putLegacyBinding(legacy, "MEDIA_NEXT", "0105", ActionType.NEXT_TRACK)
+            putLegacyBinding(legacy, "RINGER", "0106", ActionType.VIBRATE_MODE)
+        }
+        // Write the migration marker and imported state together. The original onboarding
+        // can still be replayed, without replacing or enabling the migrated shortcuts.
+        prefs.edit()
+            .putString("codes", codes.toString())
+            .putBoolean("enabled", legacy.getBoolean("enabled", true))
+            .putBoolean("spoken_replies", false)
+            .putBoolean("onboarded", true)
+            .putBoolean("first_run_done", true)
+            .commit()
+    }
+
+    private fun JSONArray.putLegacyBinding(
+        legacy: SharedPreferences,
+        key: String,
+        defaultCode: String,
+        action: ActionType,
+    ) {
+        val code = legacy.getString(key, defaultCode) ?: defaultCode
+        put(JSONObject().put("c", code).put("a", action.name))
     }
 
     fun find(code: String): CodeBinding? = _codes.value.firstOrNull { it.code == code }

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="code_error_short">Use at least 3 digits.</string>
+    <string name="code_error_long">Use 8 digits or fewer.</string>
+    <string name="code_error_characters">Use only digits, * and #.</string>
+    <string name="code_error_emergency">This could reach an emergency service in some countries. Try one starting with 01.</string>
+    <string name="code_error_duplicate">Another action already uses this code.</string>
+</resources>

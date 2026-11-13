@@ -13,6 +13,7 @@ import android.os.Bundle
 import android.os.IBinder
 import android.os.PowerManager
 import android.telecom.TelecomManager
+import android.util.Log
 import com.littyl.digix.R
 import com.littyl.digix.core.ActionType
 import com.littyl.digix.core.CodeBinding
@@ -47,11 +48,20 @@ class SosService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         // Declared as a location service, or Android leaves "while using" location requests idle.
-        startForeground(
-            Notifications.ID_SOS,
-            Notifications.running(this, getString(R.string.sos_running), null, stopIntent(), getString(R.string.action_stop)),
-            ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION,
-        )
+        try {
+            startForeground(
+                Notifications.ID_SOS,
+                Notifications.running(this, getString(R.string.sos_running), null, stopIntent(), getString(R.string.action_stop)),
+                ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION,
+            )
+        } catch (e: SecurityException) {
+            Log.w("Digix", "SOS location permission denied", e)
+            SosConfig.markStopped(this)
+            reportStartFailure(this, codeForLog())
+            if (intent?.action == ACTION_TEST) lastTestResult.value = TestResult(0, SosConfig.settings.value.contacts.size, false)
+            stopSelf(startId)
+            return START_NOT_STICKY
+        }
         when (intent?.action) {
             ACTION_STOP -> stop(notifyContacts = true)
             ACTION_TEST -> sendTest()
@@ -244,6 +254,12 @@ class SosService : Service() {
         private const val WAKE_LOCK_MARGIN_MS = 60_000L
 
         val lastTestResult = kotlinx.coroutines.flow.MutableStateFlow<TestResult?>(null)
+
+        internal fun reportStartFailure(context: Context, code: String) {
+            val message = context.getString(R.string.sos_start_unavailable)
+            Store.record(RunEntry(System.currentTimeMillis(), code, ActionType.SOS, RunStatus.FAILED, message))
+            Notifications.postResult(context, context.getString(R.string.sos_discreet_failed), null)
+        }
 
         fun start(context: Context) {
             context.startForegroundService(Intent(context, SosService::class.java))

@@ -49,6 +49,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import com.littyl.digix.BuildConfig
 import com.littyl.digix.R
 import com.littyl.digix.core.AssistantConfig
 import com.littyl.digix.core.AssistantProvider
@@ -89,7 +90,10 @@ fun AssistantSetupScreen(onBack: () -> Unit) {
     val micLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { onBack() }
 
     val isCustom = provider == AssistantProvider.CUSTOM
-    val canCheck = key.isNotBlank() && !checking && (!isCustom || (baseUrl.isNotBlank() && chatModel.isNotBlank()))
+    val needsHttps = BuildConfig.PLAY_EDITION && isCustom
+    val validProvider = !needsHttps || baseUrl.startsWith("https://", ignoreCase = true)
+    val canCheck = key.isNotBlank() && !checking && validProvider &&
+        (!isCustom || (baseUrl.isNotBlank() && chatModel.isNotBlank()))
     val scroll = rememberScrollState()
     val title = stringResource(R.string.assistant_title)
 
@@ -165,7 +169,10 @@ fun AssistantSetupScreen(onBack: () -> Unit) {
                         }
                     }
                 }
-                InlineMessage(text = problem?.let { stringResource(it) })
+                InlineMessage(text = when {
+                    needsHttps && baseUrl.isNotBlank() && !validProvider -> stringResource(R.string.assistant_https_required)
+                    else -> problem?.let { stringResource(it) }
+                })
                 VSpace(22.dp)
                 Text(stringResource(R.string.assistant_privacy), style = Digix.type.subhead, color = Digix.colors.secondary)
                 VSpace(16.dp)

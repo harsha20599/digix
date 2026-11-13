@@ -45,6 +45,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.littyl.digix.BuildConfig
 import com.littyl.digix.R
 import com.littyl.digix.ui.Halo
 import androidx.compose.ui.Alignment
@@ -100,7 +101,7 @@ fun EditScreen(
     }
 
     var savedCode by rememberSaveable { mutableStateOf(original?.code) }
-    var code by rememberSaveable { mutableStateOf(original?.code ?: CodeRules.suggest(codes)) }
+    var code by rememberSaveable { mutableStateOf(original?.code ?: CodeRules.suggest(codes.map { it.code })) }
     var webAddress by rememberSaveable { mutableStateOf(original?.webAddress.orEmpty()) }
     var phone by rememberSaveable { mutableStateOf(original?.phone.orEmpty()) }
     var contactName by rememberSaveable { mutableStateOf(original?.contactName.orEmpty()) }
@@ -125,7 +126,7 @@ fun EditScreen(
     var runResult by remember { mutableStateOf<String?>(null) }
     var runFailed by remember { mutableStateOf(false) }
 
-    val problem = CodeRules.problem(context, code, codes, ignoring = savedCode)
+    val problem = CodeRules.problem(context, code, codes.map { it.code }, ignoring = savedCode)
     val webNeeded = action.requirement == Requirement.WEB_ADDRESS
     val webValid = !webNeeded || webAddress.startsWith("http://") || webAddress.startsWith("https://")
     val contactValid = !needsContact || phone.count { it.isDigit() } >= MIN_PHONE_DIGITS
@@ -283,6 +284,9 @@ fun EditScreen(
                             modifier = Modifier.fillMaxWidth(),
                         )
                     }
+                } else if (BuildConfig.PLAY_EDITION && action.requirement == Requirement.SMS_LOCATION) {
+                    VSpace(24.dp)
+                    Group { BackgroundLocationPermissionRow(R.string.share_background_location_body) }
                 } else if (!ready && action.requirement !in NO_SETUP_ROW) {
                     VSpace(24.dp)
                     Group { SetupRow(action, onSetup) }
@@ -361,12 +365,12 @@ private val NO_SETUP_ROW = setOf(Requirement.WEB_ADDRESS, Requirement.CONTACT, R
 private fun missingPermissions(context: Context, requirement: Requirement): List<String> {
     val wanted = when (requirement) {
         Requirement.SMS -> listOf(Manifest.permission.SEND_SMS, Manifest.permission.READ_PHONE_STATE)
-        Requirement.SMS_LOCATION -> listOf(
-            Manifest.permission.SEND_SMS,
-            Manifest.permission.READ_PHONE_STATE,
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-        )
+        Requirement.SMS_LOCATION -> listOf(Manifest.permission.SEND_SMS, Manifest.permission.READ_PHONE_STATE) +
+            if (context.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                emptyList()
+            } else {
+                listOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
+            }
         else -> emptyList()
     }
     return wanted.filter { context.checkSelfPermission(it) != PackageManager.PERMISSION_GRANTED }

@@ -29,7 +29,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -45,6 +47,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.littyl.digix.BuildConfig
 import com.littyl.digix.R
 import com.littyl.digix.core.ActionType
 import com.littyl.digix.core.Requirement
@@ -88,6 +91,7 @@ fun SetupScreen(action: ActionType, onBack: () -> Unit) {
     val labels by Store.tileLabels.collectAsStateWithLifecycle()
     val learned by HelperService.learned.collectAsStateWithLifecycle()
     var teaching by remember { mutableStateOf(false) }
+    var explainHelper by remember { mutableStateOf(false) }
 
     LaunchedEffect(learned) {
         if (learned == action) {
@@ -103,10 +107,33 @@ fun SetupScreen(action: ActionType, onBack: () -> Unit) {
     val offersShizuku = needsTile && shizukuRunning
     val hasLabel = labels.containsKey(action)
     var preferHelper by remember { mutableStateOf(false) }
-    val offersDirect = needsTile && Readiness.canOfferDirectHotspot()
-    val directReady = remember(tick) { Readiness.canSwitchHotspotDirectly(context) }
+    val offersDirect = action == ActionType.HOTSPOT && Readiness.canOfferDirectHotspot()
+    val directReady = remember(tick, action) {
+        when (action) {
+            ActionType.WIFI -> Readiness.canSwitchWifiDirectly(context)
+            ActionType.HOTSPOT -> Readiness.canSwitchHotspotDirectly(context)
+            else -> false
+        }
+    }
     val showHelper = !needsTile || (!directReady && !offersDirect && !shizukuReady && (!offersShizuku || preferHelper))
     val finished = if (needsTile) directReady || shizukuReady || (helperRunning && hasLabel) else helperRunning
+
+    if (explainHelper) {
+        AlertDialog(
+            onDismissRequest = { explainHelper = false },
+            title = { Text(stringResource(R.string.setup_helper_title)) },
+            text = { Text(stringResource(R.string.setup_helper_disclosure)) },
+            confirmButton = {
+                TextButton(onClick = {
+                    explainHelper = false
+                    context.startActivity(helperSettingsIntent(context.packageName, context))
+                }) { Text(stringResource(R.string.setup_helper_agree)) }
+            },
+            dismissButton = {
+                TextButton(onClick = { explainHelper = false }) { Text(stringResource(android.R.string.cancel)) }
+            },
+        )
+    }
 
     val scroll = rememberScrollState()
     val title = stringResource(R.string.setup_title, actionName)
@@ -185,7 +212,11 @@ fun SetupScreen(action: ActionType, onBack: () -> Unit) {
                         DigixButton(
                             stringResource(R.string.setup_helper_cta),
                             onClick = {
-                                context.startActivity(helperSettingsIntent(context.packageName, context))
+                                if (BuildConfig.PLAY_EDITION) {
+                                    explainHelper = true
+                                } else {
+                                    context.startActivity(helperSettingsIntent(context.packageName, context))
+                                }
                             },
                             modifier = Modifier.fillMaxWidth(),
                         )

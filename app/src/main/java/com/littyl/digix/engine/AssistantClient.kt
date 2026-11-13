@@ -1,6 +1,7 @@
 package com.littyl.digix.engine
 
 import android.util.Base64
+import com.littyl.digix.BuildConfig
 import com.littyl.digix.core.AssistantProvider
 import com.littyl.digix.core.AssistantSettings
 import kotlinx.coroutines.Dispatchers
@@ -145,7 +146,13 @@ class AssistantClient(private val settings: AssistantSettings) {
 
     private fun postBytes(url: String, body: ByteArray, headers: Map<String, String>): String {
         try {
-            val connection = URL(url).openConnection() as HttpURLConnection
+            val endpoint = URL(url)
+            val secureProvider = BuildConfig.PLAY_EDITION && !BuildConfig.DEBUG
+            if (secureProvider && endpoint.protocol != "https") {
+                throw AssistantException(AssistantFailure.NETWORK, "The Play edition requires an HTTPS provider")
+            }
+            val connection = endpoint.openConnection() as HttpURLConnection
+            if (secureProvider) connection.instanceFollowRedirects = false
             connection.requestMethod = "POST"
             connection.connectTimeout = CONNECT_TIMEOUT_MS
             connection.readTimeout = READ_TIMEOUT_MS

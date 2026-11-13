@@ -42,18 +42,18 @@ object CodeRules {
 
     /** Returns the reason this code cannot be used, or null when it is fine. */
     @StringRes
-    fun problem(context: Context, code: String, existing: List<CodeBinding>, ignoring: String? = null): Int? = when {
+    fun problem(context: Context, code: String, existing: Collection<String>, ignoring: String? = null): Int? = when {
         code.length < MIN_LENGTH -> R.string.code_error_short
         code.length > MAX_LENGTH -> R.string.code_error_long
         code.any { !it.isDigit() && it != '*' && it != '#' } -> R.string.code_error_characters
         isEmergency(context, code) || EMERGENCY_PREFIXES.any { code.startsWith(it) } -> R.string.code_error_emergency
-        code != ignoring && existing.any { it.code == code } -> R.string.code_error_duplicate
+        code != ignoring && code in existing -> R.string.code_error_duplicate
         else -> null
     }
 
     /** The next unused code in the 01xx series, which is too short to reach anyone worldwide. */
-    fun suggest(existing: List<CodeBinding>): String {
-        val used = existing.map { it.code }.toSet()
+    fun suggest(existing: Collection<String>): String {
+        val used = existing.toSet()
         for (n in 101..199) {
             val candidate = "0$n"
             if (candidate !in used) return candidate

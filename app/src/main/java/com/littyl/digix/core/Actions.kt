@@ -67,7 +67,7 @@ enum class ActionType(
     DO_NOT_DISTURB(R.string.action_dnd, R.string.action_dnd_summary, R.drawable.ic_moon, Requirement.DND_ACCESS),
     WEBHOOK(R.string.action_webhook, R.string.action_webhook_summary, R.drawable.ic_webhook, Requirement.WEB_ADDRESS),
     HOTSPOT(R.string.action_hotspot, R.string.action_hotspot_summary, R.drawable.ic_radio_tower, Requirement.PHONE_CONTROL),
-    WIFI(R.string.action_wifi, R.string.action_wifi_summary, R.drawable.ic_wifi, Requirement.NONE),
+    WIFI(R.string.action_wifi, R.string.action_wifi_summary, R.drawable.ic_wifi, Requirement.PHONE_CONTROL),
     ASSISTANT(R.string.action_assistant, R.string.action_assistant_summary, R.drawable.ic_zap, Requirement.ASSISTANT),
     LOCK_PHONE(R.string.action_lock, R.string.action_lock_summary, R.drawable.ic_lock, Requirement.HELPER),
 }

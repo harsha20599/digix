@@ -2,25 +2,30 @@
 
 Dial a short code on your watch and your Android phone runs an action, with no call placed and no watch app. Any Bluetooth watch that can place calls through the phone can use it. Only the OnePlus Watch 3 has been tested so far.
 
-## Install the test build
+## Editions
 
-`dist/Digix-1.1-test.apk` is shrunk like a release build, but debuggable and signed with a debug key. Don't distribute it. Copy it to the phone and open it from a file manager.
+Both editions share DigiX’s interface and action engine. The sideload app retains its original package and legacy Android target. The Play build keeps the published package, targets Android 16, and uses Android’s current permission and setup flows.
 
 ## Build
 
+With the Android SDK and a compatible JDK configured:
+
 ```bash
-JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home" ./gradlew :app:assembleStaging
+./gradlew :app:assembleStaging
+./gradlew -Pdigix.play=true :app:assembleStaging :app:bundleRelease
 ```
 
-The APK is written to `app/build/outputs/apk/staging/`. A public release needs your own signing key.
+The staging APK uses a debug key for testing. Sign a public sideload APK with the distribution key. Sign the Play release bundle with the app’s upload key before submitting it. Build the editions separately because their artifacts use the same output names.
 
 ## Test
 
+Install the sideload staging APK on a disposable emulator and run:
+
 ```bash
-scripts/emulator_tests.sh emulator-5554
+zsh scripts/emulator_tests.sh emulator-5554
 ```
 
-Set `MOCK_LOG` and `MOCK_PORT`, and run `scripts/mock_assistant.py` on that port, to include the voice assistant tests. The suite only runs against an emulator, whose modem is simulated, so no real call can leave the machine. Run it with the staging build installed. Don't inspect the screen with `uiautomator` while testing the helper, because it switches accessibility services off while it reads the screen.
+This suite clears DigiX data and sends simulated calls and texts. It refuses to run on a physical device. Set `MOCK_LOG` and `MOCK_PORT` and run `scripts/mock_assistant.py` to include the voice assistant checks. Avoid running UI Automator during the sideload tests because it temporarily disconnects accessibility services.
 
 ## How it works
 
@@ -33,13 +38,6 @@ Set `MOCK_LOG` and `MOCK_PORT`, and run `scripts/mock_assistant.py` on that port
 
 ## Google Home
 
-The Google Home action is built only when Google's library is on this machine. It's in open beta, isn't on Google's public Maven, and needs a Google sign-in to download.
-
-1. Sign in at [the Home APIs SDK page](https://developers.home.google.com/apis/android/sdk), download the library, and put it in `~/.m2/repository`, so `com/google/android/gms/play-services-home-types` exists. The build finds it and includes the action.
-2. In [Google Cloud](https://console.cloud.google.com), set up the OAuth consent screen and add each person's Google account as a test user. Then create an Android OAuth client for package `com.littyl.digix` with the SHA-1 of the signing key, which `keytool -list -v -keystore ~/.android/debug.keystore -storepass android` prints for the test build. The current test build uses the Google Cloud project `dialect-513905`, where you add new test users under Google Auth Platform → Audience.
-
-Library 17.1.0 is built with Kotlin 2.4, so the project needs Kotlin 2.4 or later.
-
-Until Google opens its Developer Console, only those test users can connect, with a limit of 100. Code that works without the library lives in `app/src/main`, and each build adds one folder: `home-sdk` for the real library, `home-off` to leave the action out, or `home-fake` for a pretend home. Build with `-Pdigix.home=fake` and set `HOME_FAKE=1` to include the Google Home tests, because emulators can't run Google's library.
+Google Home support is coming later, pending verification. The sideload build excludes the SDK by default, even when it is installed locally. Maintainers can use `-Pdigix.home=fake` and `HOME_FAKE=1` to test the development integration. The real integration requires the local SDK and a configured test account and is enabled only with `-Pdigix.home=sdk`.
 
 See `PRODUCT.md` for product decisions and `DESIGN.md` for the design system.

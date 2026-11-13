@@ -16,6 +16,8 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.compose.LifecycleResumeEffect
+import com.littyl.digix.BuildConfig
+import com.littyl.digix.core.ActionType
 import com.littyl.digix.core.AssistantConfig
 import com.littyl.digix.core.CodeBinding
 import com.littyl.digix.core.Requirement
@@ -40,6 +42,9 @@ object Readiness {
     fun backgroundStartIntent(context: Context): Intent =
         Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, Uri.parse("package:${context.packageName}"))
 
+    fun canSwitchWifiDirectly(context: Context): Boolean =
+        context.applicationInfo.targetSdkVersion < Build.VERSION_CODES.Q
+
     /** Android 16 refuses this route. Below that it only needs "Modify system settings". */
     fun canOfferDirectHotspot(): Boolean = Build.VERSION.SDK_INT < Build.VERSION_CODES.BAKLAVA
 
@@ -51,6 +56,10 @@ object Readiness {
         context.checkSelfPermission(Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED &&
             PhoneState.canRead(context)
 
+    fun canLocateInBackground(context: Context): Boolean =
+        LocationTracker.hasPermission(context) &&
+            (!BuildConfig.PLAY_EDITION || context.checkSelfPermission(Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED)
+
     fun hasMicrophone(context: Context): Boolean =
         context.checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
 
@@ -59,13 +68,18 @@ object Readiness {
         Requirement.BACKGROUND_START -> canStartInBackground(context)
         Requirement.DND_ACCESS -> context.getSystemService(NotificationManager::class.java).isNotificationPolicyAccessGranted
         Requirement.WEB_ADDRESS -> !binding.webAddress.isNullOrBlank()
-        Requirement.PHONE_CONTROL ->
-            canSwitchHotspotDirectly(context) || ShizukuBridge.isReady() || HelperService.isConfigured(binding.action)
+        Requirement.PHONE_CONTROL -> {
+            val direct = when (binding.action) {
+                ActionType.WIFI -> canSwitchWifiDirectly(context)
+                else -> canSwitchHotspotDirectly(context)
+            }
+            direct || ShizukuBridge.isReady() || HelperService.isConfigured(binding.action)
+        }
         Requirement.ASSISTANT -> AssistantConfig.load(context) != null && hasMicrophone(context)
         Requirement.CONTACT -> !binding.phone.isNullOrBlank()
         Requirement.SMS -> !binding.phone.isNullOrBlank() && !binding.message.isNullOrBlank() && canSendSms(context)
-        Requirement.SMS_LOCATION -> !binding.phone.isNullOrBlank() && canSendSms(context) && LocationTracker.hasPermission(context)
-        Requirement.SOS -> SosConfig.settings.value.contacts.isNotEmpty() && canSendSms(context) && LocationTracker.hasPermission(context)
+        Requirement.SMS_LOCATION -> !binding.phone.isNullOrBlank() && canSendSms(context) && canLocateInBackground(context)
+        Requirement.SOS -> SosConfig.settings.value.contacts.isNotEmpty() && canSendSms(context) && canLocateInBackground(context)
         Requirement.WHATSAPP -> !binding.phone.isNullOrBlank() && !binding.message.isNullOrBlank() && HelperService.isRunning
         Requirement.HELPER -> HelperService.isRunning
         Requirement.GOOGLE_HOME -> GoogleHome.connected.value && !binding.homeDeviceId.isNullOrBlank()

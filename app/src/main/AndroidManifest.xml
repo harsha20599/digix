@@ -60,8 +60,14 @@
             </intent-filter>
         </activity>
 
+        <activity-alias
+            android:name="com.littyl.digix.play.MainActivity"
+            android:enabled="${playEdition}"
+            android:exported="${playEdition}"
+            android:targetActivity=".ui.MainActivity" />
+
         <service
-            android:name=".engine.CallInterceptor"
+            android:name="${callInterceptor}"
             android:exported="true"
             android:permission="android.permission.BIND_CALL_REDIRECTION_SERVICE">
             <intent-filter>

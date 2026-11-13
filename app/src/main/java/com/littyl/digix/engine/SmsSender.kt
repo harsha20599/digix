@@ -9,6 +9,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.telephony.SmsManager
 import android.telephony.SubscriptionManager
+import androidx.core.content.ContextCompat
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withTimeoutOrNull
@@ -60,7 +61,7 @@ class SmsSender(private val context: Context) {
                 if (remaining <= 0) finished.complete(!failed)
             }
         }
-        context.registerReceiver(receiver, IntentFilter(action))
+        ContextCompat.registerReceiver(context, receiver, IntentFilter(action), ContextCompat.RECEIVER_NOT_EXPORTED)
         return try {
             val sent = ArrayList(
                 parts.indices.map { part ->

@@ -30,6 +30,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.littyl.digix.BuildConfig
 import com.littyl.digix.R
 import com.littyl.digix.core.SosConfig
 import com.littyl.digix.core.SosContact
@@ -188,6 +189,10 @@ fun SosSetupScreen(onBack: () -> Unit) {
                         },
                         trailing = if (canLocate) null else ({ Chevron() }),
                     )
+                    if (BuildConfig.PLAY_EDITION && canLocate) {
+                        GroupDivider()
+                        BackgroundLocationPermissionRow(R.string.sos_background_location_body)
+                    }
                     GroupDivider()
                     GroupRow(
                         title = stringResource(R.string.sos_check_location_on),

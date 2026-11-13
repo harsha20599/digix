@@ -8,21 +8,37 @@ plugins {
 // a stand-in for testing on emulators, and "off" leaves Google Home out of the app.
 val homeSdkFolder = file("${System.getProperty("user.home")}/.m2/repository/com/google/android/gms/play-services-home-types")
 val homeSdkVersion = homeSdkFolder.list()?.filter { it.first().isDigit() }?.maxOrNull()
-val homeBackend = providers.gradleProperty("digix.home").orNull ?: if (homeSdkVersion != null) "sdk" else "off"
+val homeBackend = providers.gradleProperty("digix.home").getOrElse("off")
+require(homeBackend in setOf("off", "fake", "sdk")) { "Unknown DigiX Home backend: $homeBackend" }
+require(homeBackend != "sdk" || homeSdkVersion != null) { "Install the local Google Home SDK before enabling it." }
+
+val playEdition = providers.gradleProperty("digix.play").map(String::toBooleanStrict).getOrElse(false)
 
 android {
     namespace = "com.littyl.digix"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.littyl.digix"
+        applicationId = "com.littyl.digix.play"
         minSdk = 29
-        // Deliberately old, because Android keeps these direct abilities for such apps: switching
-        // Wi-Fi, switching the hotspot on Android 15 and below, and starting from the background.
-        // Google Play won't accept new apps at this target, so a Play build needs its own flavor.
-        targetSdk = 28
-        versionCode = 1
-        versionName = "1.0"
+        targetSdk = 36
+        versionCode = 4
+        versionName = "1.1.0"
+
+        if (!playEdition) {
+            // The sideload app uses the legacy direct Android controls.
+            applicationId = "com.littyl.digix"
+            targetSdk = 28
+            versionCode = 1
+            versionName = "1.0"
+        }
+        buildConfigField("boolean", "PLAY_EDITION", playEdition.toString())
+        manifestPlaceholders["playEdition"] = playEdition.toString()
+        manifestPlaceholders["callInterceptor"] = if (playEdition) {
+            "com.littyl.digix.play.DialCodesService"
+        } else {
+            "com.littyl.digix.engine.CallInterceptor"
+        }
     }
 
     buildTypes {
@@ -44,8 +60,13 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    buildFeatures { compose = true }
-    sourceSets["main"].java.srcDir("src/home-$homeBackend/java")
+    buildFeatures {
+        compose = true
+        buildConfig = true
+    }
+    if (playEdition) sourceSets["main"].java.srcDir("src/play-edition/java")
+    sourceSets["main"].java.srcDirs("src/home-$homeBackend/java", "../shared/src/main/java")
+    sourceSets["main"].res.srcDir("../shared/src/main/res")
     lint {
         disable += setOf("ExpiredTargetSdkVersion", "OldTargetApi")
     }

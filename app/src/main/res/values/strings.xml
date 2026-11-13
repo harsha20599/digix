@@ -56,11 +56,6 @@
     <string name="action_lock_summary">Locks your phone screen.</string>
 
     <!-- Code rules -->
-    <string name="code_error_short">Use at least 3 digits.</string>
-    <string name="code_error_long">Use 8 digits or fewer.</string>
-    <string name="code_error_characters">Use only digits, * and #.</string>
-    <string name="code_error_emergency">This could reach an emergency service in some countries. Try one starting with 01.</string>
-    <string name="code_error_duplicate">Another action already uses this code.</string>
 
     <!-- Results, shown on the watch -->
     <string name="result_off">Digix is off. Code %1$s did not run.</string>
@@ -266,7 +261,7 @@
     <string name="setup_shizuku_ready">Using Shizuku</string>
     <string name="setup_use_helper">Use the helper instead</string>
     <string name="setup_helper_title">Turn on the Digix helper</string>
-    <string name="setup_helper_body">Find Digix helper in the list and turn it on. It only reads the Quick Settings panel.</string>
+    <string name="setup_helper_body">Find Digix helper in the list and turn it on. The helper uses Accessibility to run the specific actions you set up.</string>
     <string name="setup_helper_cta">Open settings</string>
     <string name="setup_helper_ready">Helper is on</string>
     <string name="setup_restricted_title">Android says it\'s restricted?</string>
@@ -392,4 +387,13 @@
     <string name="settings_replay">Replay the introduction</string>
     <string name="settings_version">Version %1$s</string>
     <string name="settings_tile_hint">You can also add a Digix tile to Quick Settings to switch it on or off.</string>
+    <string name="settings_privacy_policy">Privacy policy</string>
+    <string name="settings_play_privacy_url" translatable="false">https://digix-privacy.vercel.app/</string>
+    <string name="sos_start_unavailable">SOS couldn’t start. Check the permissions and try the SOS test in DigiX.</string>
+    <string name="setup_helper_disclosure">DigiX uses Accessibility to read Quick Settings labels and tap the tiles you choose, lock the screen, and find and tap Send in WhatsApp when you dial a WhatsApp shortcut. The helper does not send screen content to DigiX servers. You can turn it off in Android settings.</string>
+    <string name="sos_background_location">Location when the app is closed</string>
+    <string name="sos_background_location_body">DigiX uses your location while an SOS is active, even when the app is closed, to text updates to your chosen contacts. To enable this, open Permissions, select Location, then choose Allow all the time.</string>
+    <string name="share_background_location_body">DigiX uses your location when the app is closed if you dial a Share my location code. It sends a map link by text to the contact you chose for that code. To enable this, open Permissions, select Location, then choose Allow all the time.</string>
+    <string name="setup_helper_agree">Agree and open settings</string>
+    <string name="assistant_https_required">Use an HTTPS address for your voice provider.</string>
 </resources>

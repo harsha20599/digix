@@ -14,9 +14,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.littyl.digix.BuildConfig
 import com.littyl.digix.R
 import com.littyl.digix.ui.Wordmark
 import com.littyl.digix.ui.Halo
@@ -46,6 +48,8 @@ import com.littyl.digix.ui.theme.Digix
 @Composable
 fun SettingsScreen(onBack: () -> Unit, onOpenHelper: () -> Unit, onOpenAssistant: () -> Unit) {
     val context = LocalContext.current
+    val uriHandler = LocalUriHandler.current
+    val privacyUrl = stringResource(R.string.settings_play_privacy_url)
     val tick = rememberResumeTick()
     val haptics by Store.haptics.collectAsStateWithLifecycle()
     val spoken by Store.spokenReplies.collectAsStateWithLifecycle()
@@ -160,6 +164,14 @@ fun SettingsScreen(onBack: () -> Unit, onOpenHelper: () -> Unit, onOpenAssistant
                         onClick = { Store.setOnboarded(false) },
                         trailing = { Chevron() },
                     )
+                    if (BuildConfig.PLAY_EDITION) {
+                        GroupDivider()
+                        GroupRow(
+                            title = stringResource(R.string.settings_privacy_policy),
+                            onClick = { uriHandler.openUri(privacyUrl) },
+                            trailing = { Chevron() },
+                        )
+                    }
                 }
                 VSpace(12.dp)
                 Text(

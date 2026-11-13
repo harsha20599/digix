@@ -3,13 +3,13 @@ package com.littyl.digix.engine
 import android.net.Uri
 import android.telecom.CallRedirectionService
 import android.telecom.PhoneAccountHandle
+import android.telephony.PhoneNumberUtils
 import android.telephony.TelephonyManager
 import android.util.Log
 import com.littyl.digix.R
 import com.littyl.digix.core.ActionType
 import com.littyl.digix.core.RunStatus
 import com.littyl.digix.core.CodeBinding
-import com.littyl.digix.core.CodeRules
 import com.littyl.digix.core.Store
 
 /**
@@ -21,7 +21,7 @@ import com.littyl.digix.core.Store
  *
  * Dialed numbers that are not codes are never stored, logged or sent anywhere.
  */
-class CallInterceptor : CallRedirectionService() {
+open class CallInterceptor : CallRedirectionService() {
 
     override fun onPlaceCall(handle: Uri, initialPhoneAccount: PhoneAccountHandle, allowInteractiveResponse: Boolean) {
         val binding = findCode(handle)
@@ -34,6 +34,10 @@ class CallInterceptor : CallRedirectionService() {
         if (binding.action == ActionType.SOS) {
             try {
                 SosService.toggle(applicationContext, binding)
+            } catch (e: SecurityException) {
+                reportSosUnavailable(binding, e)
+            } catch (e: IllegalStateException) {
+                reportSosUnavailable(binding, e)
             } finally {
                 answer(handle, binding)
             }
@@ -63,6 +67,11 @@ class CallInterceptor : CallRedirectionService() {
         }
     }
 
+    private fun reportSosUnavailable(binding: CodeBinding, error: RuntimeException) {
+        Log.w(TAG, "SOS could not start", error)
+        SosService.reportStartFailure(applicationContext, binding.code)
+    }
+
     private fun answer(handle: Uri, binding: CodeBinding) {
         val canRedirect = try {
             PhoneState.canRead(this) && !PhoneState.isBusy(this)
@@ -85,8 +94,10 @@ class CallInterceptor : CallRedirectionService() {
      * so a failed check on a saved code doesn't make it an emergency number.
      */
     private fun findCode(handle: Uri): CodeBinding? {
+        if (handle.scheme != "tel") return null
+        val code = PhoneNumberUtils.stripSeparators(handle.schemeSpecificPart) ?: return null
         val binding = try {
-            Store.find(CodeRules.normalize(handle.schemeSpecificPart))
+            Store.find(code)
         } catch (e: RuntimeException) {
             Log.w(TAG, "code lookup failed", e)
             null
