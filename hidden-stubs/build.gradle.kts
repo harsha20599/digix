@@ -5,5 +5,7 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 dependencies {
-    compileOnly(files("${System.getProperty("user.home")}/Library/Android/sdk/platforms/android-34/android.jar"))
+    compileOnly(files(provider {
+        rootProject.project(":app").extensions.getByType<com.android.build.gradle.BaseExtension>().bootClasspath
+    }))
 }
